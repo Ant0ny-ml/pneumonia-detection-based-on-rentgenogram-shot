@@ -5,4 +5,5 @@ I made this model using data from Kaggle data set  https://www.kaggle.com/paulti
 For training i used only normal  and viral pneumonia photos.
 
 If you just want to use trained model you should create folder 'test_val/test_photo' and put in photo to check it.
+Otherwise you will need to use the dataset specified above.
 
