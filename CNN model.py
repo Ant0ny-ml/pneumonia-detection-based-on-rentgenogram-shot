@@ -97,9 +97,5 @@ history = classifier.fit_generator(
     callbacks=callbacks_list
 )
 
-
-loss=history.history['loss']
-epochs_range = range(len(loss))
-
 with open("chest_xray_model", "wb") as f:
     pickle.dump(classifier, f)
