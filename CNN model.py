@@ -84,14 +84,21 @@ history = classifier.fit_generator(
     validation_steps=total_test // batch_size,
     callbacks=callbacks_list
 )
-prediction = classifier.predict_generator(generator=train_data_gen, verbose=2, steps=100)
+optimizer = Adam(lr = 0.0001)
+early = EarlyStopping(monitor="val_loss", mode="min", patience=3)
+callbacks_list = [early]
+classifier.compile(loss="binary_crossentropy", metrics=["accuracy"], optimizer=optimizer)
+history = classifier.fit_generator(
+    train_data_gen,
+    steps_per_epoch=total_train // batch_size,
+    epochs=epochs,
+    validation_data=validation_data_gen,
+    validation_steps=total_test // batch_size,
+    callbacks=callbacks_list
+)
 
-acc = history.history['accuracy']
-val_acc = history.history['val_accuracy']
 
 loss=history.history['loss']
-val_loss=history.history['val_loss']
-
 epochs_range = range(len(loss))
 
 with open("chest_xray_model", "wb") as f:
